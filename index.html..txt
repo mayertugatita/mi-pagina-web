@@ -1,0 +1,574 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fightklub | Entrenamiento Personalizado & Eventos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;0,900;1,900&family=Teko:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #050505;
+      --bg-card: #121212;
+      --red-neon: #ff003c;
+      --magenta-neon: #ff007f;
+      --text-main: #f0f0f0;
+      --text-muted: #888888;
+      --border-color: #262626;
+      --font-heading: 'Teko', sans-serif;
+      --font-body: 'Montserrat', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(5, 5, 5, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.8rem 2rem;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .nav-brand img {
+      height: 45px;
+      border-radius: 50%;
+      border: 2px solid var(--red-neon);
+    }
+
+    .nav-brand span {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--red-neon);
+    }
+
+    .btn-nav {
+      background: var(--red-neon);
+      color: #fff !important;
+      padding: 6px 16px;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(255, 0, 60, 0.4);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: linear-gradient(to bottom, rgba(5,5,5,0.4), var(--bg-dark)), url('https://lh3.googleusercontent.com/d/1O5rN2bE_J7X8_m_P2K6m3_O8w9V1A3u-') center/cover no-repeat;
+      padding: 100px 20px 60px;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      z-index: 2;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: var(--red-neon);
+      color: #fff;
+      font-weight: 900;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+      clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 0.9;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-shadow: 0 0 20px rgba(255, 0, 60, 0.5);
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #ccc;
+      max-width: 650px;
+      margin: 0 auto 30px;
+    }
+
+    .btn-main {
+      display: inline-block;
+      background: #fff;
+      color: #000;
+      font-weight: 900;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      padding: 15px 35px;
+      text-decoration: none;
+      letter-spacing: 2px;
+      transition: all 0.3s;
+      border: 2px solid #fff;
+    }
+
+    .btn-main:hover {
+      background: var(--red-neon);
+      color: #fff;
+      border-color: var(--red-neon);
+      box-shadow: 0 0 25px rgba(255, 0, 60, 0.8);
+      transform: translateY(-3px);
+    }
+
+    /* SECCIONES COMUNES */
+    section {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 3.5rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      margin-bottom: 50px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+    }
+
+    /* ROSTER / FIGHTERS */
+    .fighters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .fighter-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+      position: relative;
+    }
+
+    .fighter-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--red-neon);
+    }
+
+    .fighter-img {
+      width: 100%;
+      height: 420px;
+      object-fit: cover;
+      filter: grayscale(40%);
+      transition: filter 0.3s;
+    }
+
+    .fighter-card:hover .fighter-img {
+      filter: grayscale(0%);
+    }
+
+    .fighter-info {
+      padding: 20px;
+    }
+
+    .fighter-name {
+      font-family: var(--font-heading);
+      font-size: 2.2rem;
+      line-height: 1;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    .fighter-role {
+      color: var(--red-neon);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .fighter-stats {
+      display: flex;
+      gap: 15px;
+      border-top: 1px solid var(--border-color);
+      padding-top: 10px;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: #aaa;
+    }
+
+    /* SERVICIOS */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .service-box {
+      background: var(--bg-card);
+      padding: 30px;
+      border-left: 4px solid var(--red-neon);
+      border-radius: 4px;
+    }
+
+    .service-box h3 {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .service-box p {
+      color: #aaa;
+      font-size: 0.95rem;
+    }
+
+    /* METRO GALLERY / PROMO */
+    .metro-section {
+      background: #000;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .metro-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .metro-item {
+      position: relative;
+      border-radius: 6px;
+      overflow: hidden;
+      height: 300px;
+    }
+
+    .metro-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .metro-item:hover img {
+      transform: scale(1.05);
+    }
+
+    /* CONTACT / FORM */
+    .contact-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 40px;
+      border-radius: 8px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      color: #ccc;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 12px;
+      background: #0a0a0a;
+      border: 1px solid var(--border-color);
+      color: #fff;
+      border-radius: 4px;
+      font-family: var(--font-body);
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--red-neon);
+      outline: none;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--red-neon);
+      color: #fff;
+      border: none;
+      padding: 15px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+
+    .btn-submit:hover {
+      background: #e00035;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #000;
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .hero h1 {
+        font-size: 4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#" class="nav-brand">
+      <img src="https://lh3.googleusercontent.com/d/1vP4GfO8w1y4i7kO0R3G7yE8N2V3X_9Z2" alt="FK Logo">
+      <span>FIGHT KLUB</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#roster">Peleadores</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#campana">Campañas</a></li>
+      <li><a href="#contacto" class="btn-nav">Agendar</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="hero">
+    <div class="hero-content">
+      <span class="hero-tag">Entrenamiento Guiado & Personalizado</span>
+      <h1>Fightklub 2027</h1>
+      <p>Entrena bajo la dirección de Francisco Oyarzun ("El Matador"). Planes de boxeo y preparación física adaptados 100% a tus metas.</p>
+      <a href="#contacto" class="btn-main">Comenzar Ahora</a>
+    </div>
+  </header>
+
+  <!-- ROSTER SECTION -->
+  <section id="roster">
+    <h2 class="section-title">NUESTRO ROSTER</h2>
+    <p class="section-subtitle">Conoce a los instructores y atletas de Fightklub</p>
+    
+    <div class="fighters-grid">
+      <!-- Francisco Oyarzun -->
+      <div class="fighter-card">
+        <img src="https://lh3.googleusercontent.com/d/1O5rN2bE_J7X8_m_P2K6m3_O8w9V1A3u-" class="fighter-img" alt="Francisco Oyarzun">
+        <div class="fighter-info">
+          <div class="fighter-role">Director & Fundador</div>
+          <div class="fighter-name">Francisco Oyarzun</div>
+          <p style="font-size: 0.85rem; color: #888; margin-top: 5px;">"El Matador" — Experto en boxeo con récord de 3-1 y organizador de eventos.</p>
+          <div class="fighter-stats">
+            <span><strong>Estatura:</strong> 1.77 cm</span>
+            <span><strong>Edad:</strong> 22 años</span>
+            <span><strong>Guardia:</strong> Izquierda</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manu -->
+      <div class="fighter-card">
+        <img src="https://lh3.googleusercontent.com/d/1M3_gK2aR4-4x2s0q7P01_qR1V5eP3Y2Z" class="fighter-img" alt="Manu">
+        <div class="fighter-info">
+          <div class="fighter-role">Atleta / Fighter</div>
+          <div class="fighter-name">MANU!</div>
+          <p style="font-size: 0.85rem; color: #888; margin-top: 5px;">Daily Bugle Edition — Guardia técnica y potencia de contraataque.</p>
+          <div class="fighter-stats">
+            <span><strong>Estatura:</strong> 1.75 cm</span>
+            <span><strong>Guardia:</strong> Izquierda</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Matias -->
+      <div class="fighter-card">
+        <img src="https://lh3.googleusercontent.com/d/1P5aB1e_9_R8z2S1M3u0kP2X1b9V1A3u-" class="fighter-img" alt="Matias">
+        <div class="fighter-info">
+          <div class="fighter-role">Atleta / Fighter</div>
+          <div class="fighter-name">Matias ("El Guerrero Z")</div>
+          <p style="font-size: 0.85rem; color: #888; margin-top: 5px;">Estilo agresivo, alcance superior y resistencia de ring.</p>
+          <div class="fighter-stats">
+            <span><strong>Estatura:</strong> 1.83 cm</span>
+            <span><strong>Guardia:</strong> Izquierda</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS SECTION -->
+  <section id="servicios">
+    <h2 class="section-title">SERVICIOS DE ENTRENO</h2>
+    <p class="section-subtitle">Diseñados según tus necesidades y nivel de experiencia</p>
+
+    <div class="services-grid">
+      <div class="service-box">
+        <h3>Boxeo Personalizado 1 a 1</h3>
+        <p>Aprende técnica real de boxeo (guardia, desplazamiento, combinaciones) con un entrenador dedicado exclusivamente a ti en cada sesión.</p>
+      </div>
+
+      <div class="service-box">
+        <h3>Acondicionamiento Físico</h3>
+        <p>Rutinas de alta intensidad para quemar grasa, ganar resistencia y mejorar la velocidad de reacción mediante el entrenamiento de combate.</p>
+      </div>
+
+      <div class="service-box">
+        <h3>Preparación para Eventos</h3>
+        <p>Estrategia de combate, sparring guiado y plan competitivo para quienes buscan subir al ring en las galas de Fightklub.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMPAÑA URBAN / METRO GALLERY -->
+  <div class="metro-section">
+    <section id="campana">
+      <h2 class="section-title">CAMPAÑA 2027</h2>
+      <p class="section-subtitle">Street marketing y presencia en las calles de Santiago</p>
+
+      <div class="metro-grid">
+        <div class="metro-item">
+          <img src="https://lh3.googleusercontent.com/d/1S1_X9Z1_P2K6m3_O8w9V1A3u-8a8b8c" alt="Metro Poster">
+        </div>
+        <div class="metro-item">
+          <img src="https://lh3.googleusercontent.com/d/1T1_Y1Z1_P2K6m3_O8w9V1A3u-9b9c9d" alt="Large Screen Metro">
+        </div>
+        <div class="metro-item">
+          <img src="https://lh3.googleusercontent.com/d/1U1_Z1Z1_P2K6m3_O8w9V1A3u-0c0d0e" alt="Mupi Billboard">
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CONTACTO / FORM -->
+  <section id="contacto">
+    <h2 class="section-title">UNIRSE AL KLUB</h2>
+    <p class="section-subtitle">Agenda tu primera sesión o consulta por planes</p>
+
+    <div class="contact-container">
+      <form id="whatsappForm">
+        <div class="form-group">
+          <label>Tu Nombre</label>
+          <input type="text" id="nombre" placeholder="Ej: Carlos Pérez" required>
+        </div>
+
+        <div class="form-group">
+          <label>Objetivo Principal</label>
+          <select id="objetivo">
+            <option value="Aprender Boxeo desde Cero">Aprender Boxeo desde Cero</option>
+            <option value="Mejorar Condición Física">Mejorar Condición Física</option>
+            <option value="Técnica Avanzada / Sparring">Técnica Avanzada / Sparring</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Disponibilidad</label>
+          <select id="horario">
+            <option value="Mañana">Mañana</option>
+            <option value="Tarde">Tarde</option>
+            <option value="Noche">Noche</option>
+          </select>
+        </div>
+
+        <button type="button" class="btn-submit" onclick="enviarWhatsApp()">Contactar por WhatsApp 📱</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 Fightklub.oficial — Todos los derechos reservados.</p>
+    <p style="margin-top: 5px;">Instagram: @fightklub.oficial | Twitch: @fightklub7</p>
+  </footer>
+
+  <script>
+    function enviarWhatsApp() {
+      const nombre = document.getElementById('nombre').value;
+      const objetivo = document.getElementById('objetivo').value;
+      const horario = document.getElementById('horario').value;
+
+      if (!nombre) {
+        alert('Por favor ingresa tu nombre');
+        return;
+      }
+
+      const mensaje = `Hola Fightklub! Mi nombre es ${nombre}. Estoy interesado en entrenar con ustedes. Mi objetivo es: ${objetivo} y tengo disponibilidad en la ${horario}.`;
+      const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
+      
+      window.open(url, '_blank');
+    }
+  </script>
+</body>
+</html>
